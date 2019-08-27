@@ -21,6 +21,18 @@ Col {
   margin-top: 25px;
 }
 
+.Palette {
+  height: 60px;
+  font-size: 0;
+}
+
+.Color {
+  width: 20%;
+  display: inline-block;
+  font-size: 20px;
+  line-height: 60px;
+}
+
 .Pagination {
   margin-top: 25px;
   margin-bottom: 25px;
