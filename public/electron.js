@@ -5,9 +5,10 @@ let mainWindow
 
 function createWindow() {
     mainWindow = new BrowserWindow({
-        width: 960,
+        width: 1000,
         height: 600,
-        title: "Alien Kuler"
+        title: "Alien Kuler",
+        webPreferences: { webSecurity: false }
     })
     mainWindow.removeMenu()
 
@@ -18,6 +19,7 @@ function createWindow() {
     }
 
     // mainWindow.webContents.openDevTools()
+
     mainWindow.on('closed', function () {
         mainWindow = null
     })

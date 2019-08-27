@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Row, Pagination } from 'antd';
+import { Col, Row } from 'antd';
 import ThemeCard from './ThemeCard';
 
 class CardMatrix extends Component {

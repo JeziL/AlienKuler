@@ -25,7 +25,7 @@ class ThemeCard extends Component {
         ]}>
         <Meta title={theme.name} description={
           <div>
-            <p>{theme.author.name}</p>
+            <p className="Author">{theme.author.name}</p>
             <Rate disabled defaultValue={theme.rating.overall} />
             <span className="ant-rate-text">{`(${theme.rating.count})`}</span>
             <Row style={{marginTop: '10px'}}>

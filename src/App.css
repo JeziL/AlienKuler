@@ -33,6 +33,13 @@ Col {
   line-height: 60px;
 }
 
+.Author {
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+  text-overflow: ellipsis;
+}
+
 .Pagination {
   margin-top: 25px;
   margin-bottom: 25px;
