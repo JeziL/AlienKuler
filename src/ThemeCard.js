@@ -4,6 +4,13 @@ const { Meta } = Card;
 const ipcRenderer = window.ipcRenderer;
 
 class ThemeCard extends Component {
+  componentDidMount() {
+    message.config({
+      duration: 2,
+      maxCount: 1
+    });
+  }
+
   onActionClick = (theme, action) => {
     if (action === 'left' || action === 'right') {
       ipcRenderer.send('LFX_SETLIGHT', { align: action, theme: theme });
