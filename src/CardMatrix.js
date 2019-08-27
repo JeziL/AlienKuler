@@ -11,7 +11,7 @@ class CardMatrix extends Component {
             {
               this.props.themes.map(theme => {
                 return (
-                  <Col span={6} style={{ marginBottom:'25px' }}>
+                  <Col key={theme.id} span={6} style={{ marginBottom:'25px' }}>
                     <ThemeCard theme={theme} />
                   </Col>
                 );
