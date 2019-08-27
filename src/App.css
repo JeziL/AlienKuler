@@ -1,5 +1,13 @@
 @import '~antd/dist/antd.css';
 
+body {
+  background-color: #f9f9f9;
+}
+
+Col {
+  margin-bottom: 25px;
+}
+
 .App {
   text-align: center;
   padding: 0 50px;
@@ -7,6 +15,15 @@
 
 .Search {
   margin-top: 25px;
+}
+
+.CardMatrix {
+  margin-top: 25px;
+}
+
+.Pagination {
+  margin-top: 25px;
+  margin-bottom: 25px;
 }
 
 .App-logo {

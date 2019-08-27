@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Input } from 'antd';
+import CardMatrix from './CardMatrix';
 import './App.css';
 const { Search } = Input;
 
@@ -10,6 +11,7 @@ class App extends Component {
         <div className="Search">
           <Search placeholder="使用颜色、情境或关键字搜索，例如海洋、葡萄酒、月光、幸运、水..." onSearch={value => console.log(value)} enterButton />
         </div>
+        <CardMatrix />
       </div>
     );
   }
