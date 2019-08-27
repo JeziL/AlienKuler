@@ -7,11 +7,14 @@
     "react-dom": "^16.9.0",
     "react-scripts": "3.1.1"
   },
+  "main": "public/electron.js",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "electron-dev": "cross-env DEVMODE='true' yarn electron .",
+    "dev": "concurrently --kill-others \"cross-env BROWSER='none' react-scripts start\" \"wait-on http://localhost:3000 && yarn electron-dev\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -29,6 +32,9 @@
     ]
   },
   "devDependencies": {
-    "electron": "^6.0.4"
+    "concurrently": "^4.1.2",
+    "cross-env": "^5.2.0",
+    "electron": "^6.0.4",
+    "wait-on": "^3.3.0"
   }
 }
