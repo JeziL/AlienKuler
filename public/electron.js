@@ -59,7 +59,6 @@ ipcMain.on('LFX_SETLIGHT', (event, arg) => {
                     blue: Math.ceil(swatch.values[2] * 255),
                     brightness: 255
                 });
-                console.log(color);
                 let result = libLightFX.setLightColor(0, i, color);
                 if (result !== RESULT.SUCCESS) {
                     event.sender.send('LFX_SETLIGHT_RESULT', result);
