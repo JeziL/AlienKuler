@@ -22,11 +22,12 @@ function createWindow() {
 
   if (process.env.DEVMODE) {
     mainWindow.loadURL('http://localhost:3000/')
+    BrowserWindow.addDevToolsExtension("C:\\Users\\Li\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\fmkadmapgofadopljbjfkapdkoienihi\\4.0.6_0")
   } else {
     mainWindow.loadFile(path.join(__dirname, '../build/index.html'))
   }
 
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
 
   mainWindow.on('closed', function () {
     mainWindow = null
