@@ -41,7 +41,7 @@ class LightFX {
 
   async update() {
     const result = this.dll.LFX_Update();
-    await sleep(500);
+    await sleep(100);
     return result;
   }
 
