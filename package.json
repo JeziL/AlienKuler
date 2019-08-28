@@ -1,6 +1,6 @@
 {
   "name": "alienkuler",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "antd": "^3.22.2",
@@ -10,6 +10,7 @@
     "react-scripts": "3.1.1"
   },
   "main": "public/electron.js",
+  "homepage": ".",
   "scripts": {
     "start": "cross-env BROWSER='none' react-scripts start",
     "build": "react-scripts build",
@@ -17,7 +18,29 @@
     "eject": "react-scripts eject",
     "electron-dev": "cross-env DEVMODE='true' yarn electron .",
     "dev": "concurrently --kill-others \"cross-env BROWSER='none' react-scripts start\" \"wait-on http://localhost:3000 && yarn electron-dev\"",
-    "rebuild": "electron-rebuild -f -w ffi"
+    "rebuild": "electron-rebuild -f -w ffi",
+    "electron-build": "electron-builder",
+    "clean": "rm -rf build dist",
+    "dist": "yarn clean && yarn build && yarn electron-build"
+  },
+  "build": {
+    "appId": "com.wangjinli.alienkuler",
+    "productName": "AlienKuler",
+    "nodeGypRebuild": false,
+    "win": {
+      "icon": "build/icon.png",
+      "target": "nsis"
+    },
+    "nsis": {
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": true,
+      "allowElevation": false,
+      "createDesktopShortcut": true,
+      "oneClick": false
+    },
+    "files": [
+      "build/**/*"
+    ]
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -38,6 +61,7 @@
     "concurrently": "^4.1.2",
     "cross-env": "^5.2.0",
     "electron": "4.2.9",
+    "electron-builder": "^21.2.0",
     "electron-rebuild": "^1.8.6",
     "wait-on": "^3.3.0"
   }
