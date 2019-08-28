@@ -60,12 +60,11 @@ ipcMain.on('LFX_SETLIGHT', (event, arg) => {
     (async () => {
       for (let i = 0; i < 4; i++) {
         const swatch = arg.theme.swatches[i + alignment];
-        const color = new Color({
-          red: Math.ceil(swatch.values[0] * 255),
-          green: Math.ceil(swatch.values[1] * 255),
-          blue: Math.ceil(swatch.values[2] * 255),
-          brightness: 255
-        });
+        const color = LightFX.hexToColor(swatch.hex);
+        if (!color) {
+          event.sender.send('LFX_SETLIGHT_RESULT', RESULT.FAILURE);
+          return;
+        }
         let result = libLightFX.setLightColor(0, i, color);
         if (result !== RESULT.SUCCESS) {
           event.sender.send('LFX_SETLIGHT_RESULT', result);

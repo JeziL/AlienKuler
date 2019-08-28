@@ -10,20 +10,20 @@ class LightFX {
   constructor(dllPath) {
     this.dllPath = dllPath;
     this.dll = ffi.Library(this.dllPath, {
-      LFX_Initialize:           ['int', []],
-      LFX_Release:              ['int', []],
-      LFX_Reset:                ['int', []],
-      LFX_Update:               ['int', []],
-      LFX_GetNumDevices:        ['int', [ref.refType('uint')]],
+      LFX_Initialize: ['int', []],
+      LFX_Release: ['int', []],
+      LFX_Reset: ['int', []],
+      LFX_Update: ['int', []],
+      LFX_GetNumDevices: ['int', [ref.refType('uint')]],
       LFX_GetDeviceDescription: ['int', ['int', 'string', 'int', ref.refType('uchar')]],
-      LFX_GetNumLights:         ['int', ['int', ref.refType('uint')]],
-      LFX_GetLightDescription:  ['int', ['int', 'int', 'string', 'int']],
-      LFX_GetLightLocation:     ['int', ['int', 'int', ref.refType(Position)]],
+      LFX_GetNumLights: ['int', ['int', ref.refType('uint')]],
+      LFX_GetLightDescription: ['int', ['int', 'int', 'string', 'int']],
+      LFX_GetLightLocation: ['int', ['int', 'int', ref.refType(Position)]],
       LFX_GetLightLocationMask: ['int', ['int', 'int', ref.refType('uint')]],
-      LFX_GetLightColor:        ['int', ['int', 'int', ref.refType(Color)]],
-      LFX_SetLightColor:        ['int', ['int', 'int', ref.refType(Color)]],
-      LFX_Light:                ['int', ['int', 'int']],
-      LFX_GetVersion:           ['int', ['string', 'int']],
+      LFX_GetLightColor: ['int', ['int', 'int', ref.refType(Color)]],
+      LFX_SetLightColor: ['int', ['int', 'int', ref.refType(Color)]],
+      LFX_Light: ['int', ['int', 'int']],
+      LFX_GetVersion: ['int', ['string', 'int']],
     });
   }
 
@@ -59,7 +59,7 @@ class LightFX {
     const descBuffer = Buffer.alloc(255);
     const typeBuffer = ref.alloc('uchar');
     const result = this.dll.LFX_GetDeviceDescription(deviceId, descBuffer, 255, typeBuffer);
-    
+
     return {
       result: result,
       desc: ref.readCString(descBuffer, 0),
@@ -139,6 +139,16 @@ class LightFX {
       result: result,
       version: ref.readCString(buffer, 0)
     };
+  }
+
+  static hexToColor(hex) {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? new Color({
+      red: parseInt(result[1], 16),
+      green: parseInt(result[2], 16),
+      blue: parseInt(result[3], 16),
+      brightness: 255
+    }) : null;
   }
 }
 
