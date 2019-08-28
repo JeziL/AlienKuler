@@ -3,7 +3,7 @@ const path = require('path')
 const { ipcMain } = require('electron');
 const fs = require('fs');
 const { LightFX } = require('./AlienFX/LightFX');
-const { RESULT, Color } = require('./AlienFX/constants');
+const { RESULT } = require('./AlienFX/constants');
 
 let mainWindow
 let favorites
@@ -13,6 +13,7 @@ function createWindow() {
     width: 1000,
     height: 600,
     title: "Alien Kuler",
+    icon: path.join(__dirname, 'icon.png'),
     webPreferences: {
       webSecurity: false,
       preload: path.join(__dirname, 'electron-wrapper.js')
