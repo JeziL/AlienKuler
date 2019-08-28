@@ -63,7 +63,7 @@ class App extends Component {
   };
 
   onSearch = term => {
-    this.setState({ term: term, status: 'search', page: 1 }, () => this.fetchThemes());
+    this.setState({ term: term, status: 'search', page: 1, lastState: {} }, () => this.fetchThemes());
   }
 
   onPageChange = page => {
@@ -71,11 +71,11 @@ class App extends Component {
   };
 
   onSortChange = value => {
-    this.setState({ sort: value, status: 'index', page: 1 }, () => this.fetchThemes());
+    this.setState({ sort: value, status: 'index', page: 1, lastState: {} }, () => this.fetchThemes());
   };
 
   onTimeChange = value => {
-    this.setState({ time: value, status: 'index', page: 1 }, () => this.fetchThemes());
+    this.setState({ time: value, status: 'index', page: 1, lastState: {} }, () => this.fetchThemes());
   };
 
   onHeartToggle = () => {
