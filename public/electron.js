@@ -110,3 +110,11 @@ ipcMain.on('APP_HEART', (event, arg) => {
   }
   event.returnValue = 0;
 });
+
+ipcMain.on('APP_FAVFLAGS', (event, arg) => {
+  let flags = [];
+  arg.map(theme => theme.id).map(id => {
+    flags.push((id in favorites));
+  });
+  event.returnValue = flags;
+});

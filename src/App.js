@@ -2,15 +2,20 @@ import React, { Component } from 'react';
 import { Input, Pagination, Modal } from 'antd';
 import CardMatrix from './CardMatrix';
 import './App.css';
+const ipcRenderer = window.ipcRenderer;
 const { Search } = Input;
 
 class App extends Component {
-  state = { term: "", themes: [], page: 1, total: 0, loading: false };
+  state = { term: "", themes: [], page: 1, total: 0, loading: false, favFlags: [] };
 
   componentDidMount() {
     //TODO: index
     this.searchInput.focus();
   }
+
+  fetchFavFlags = themes => {
+    return ipcRenderer.sendSync('APP_FAVFLAGS', themes);
+  };
 
   search = (term, page, limit) => {
     this.setState({ loading: true });
@@ -27,7 +32,8 @@ class App extends Component {
             content: json.message
           });
         } else {
-          this.setState({ themes: json.themes, page: page, total: json.totalCount });
+          const flags = this.fetchFavFlags(json.themes);
+          this.setState({ themes: json.themes, page: page, total: json.totalCount, favFlags: flags });
         }
         this.setState({ loading: false });
       });
@@ -52,7 +58,7 @@ class App extends Component {
             placeholder="使用颜色、情境或关键字搜索，例如海洋、葡萄酒、月光、幸运、水..."
             onSearch={this.onSearch} enterButton />
         </div>
-        <CardMatrix themes={this.state.themes} loading={this.state.loading} />
+        <CardMatrix themes={this.state.themes} loading={this.state.loading} favFlags={this.state.favFlags} />
         <div className='Pagination'>
           <Pagination showQuickJumper defaultCurrent={1} defaultPageSize={20} total={this.state.total} onChange={this.onPageChange} />
         </div>

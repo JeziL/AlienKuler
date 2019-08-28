@@ -9,10 +9,10 @@ class CardMatrix extends Component {
         <div className="CardMatrix">
           <Row gutter={16}>
             {
-              this.props.themes.map(theme => {
+              this.props.themes.map((theme, i) => {
                 return (
                   <Col key={theme.id} span={6} style={{ marginBottom:'25px' }}>
-                    <ThemeCard theme={theme} heart={false} />
+                    <ThemeCard theme={theme} heart={this.props.favFlags[i]} />
                   </Col>
                 );
               })
