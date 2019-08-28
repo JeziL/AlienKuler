@@ -4,7 +4,11 @@ const { Meta } = Card;
 const ipcRenderer = window.ipcRenderer;
 
 class ThemeCard extends Component {
+  state = { heart: false };
+
   componentDidMount() {
+    this.setState({ heart: this.props.heart });
+
     message.config({
       duration: 2,
       maxCount: 1
@@ -21,6 +25,8 @@ class ThemeCard extends Component {
           message.error(`设置失败：${arg}`);
         }
       });
+    } else if (action === 'heart') {
+      this.setState({ heart: !this.state.heart });
     }
   }
 
@@ -42,7 +48,10 @@ class ThemeCard extends Component {
         actions={[
           <Icon type="vertical-right" key="left" onClick={() => this.onActionClick(theme, 'left')} />,
           <Icon type="vertical-left" key="right" onClick={() => this.onActionClick(theme, 'right')} />,
-          <Icon type="heart" key="heart" onClick={() => this.onActionClick(theme, 'heart')} />
+          <Icon type="heart" key="heart"
+            onClick={() => this.onActionClick(theme, 'heart')}
+            theme={(this.state.heart) ? "twoTone" : "outlined"} twoToneColor="#eb2f96"
+          />
         ]}>
         <Meta title={theme.name} description={
           <div>

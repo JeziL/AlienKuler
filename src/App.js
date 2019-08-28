@@ -9,6 +9,7 @@ class App extends Component {
 
   componentDidMount() {
     //TODO: index
+    this.searchInput.focus();
   }
 
   search = (term, page, limit) => {
@@ -46,7 +47,10 @@ class App extends Component {
     return (
       <div className="App">
         <div className="Search">
-          <Search placeholder="使用颜色、情境或关键字搜索，例如海洋、葡萄酒、月光、幸运、水..." onSearch={this.onSearch} enterButton />
+          <Search 
+            ref={input => this.searchInput = input}
+            placeholder="使用颜色、情境或关键字搜索，例如海洋、葡萄酒、月光、幸运、水..."
+            onSearch={this.onSearch} enterButton />
         </div>
         <CardMatrix themes={this.state.themes} loading={this.state.loading} />
         <div className='Pagination'>
