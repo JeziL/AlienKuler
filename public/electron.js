@@ -27,7 +27,7 @@ function createWindow() {
     mainWindow.loadFile(path.join(__dirname, '../build/index.html'))
   }
 
-  mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
 
   mainWindow.on('closed', function () {
     mainWindow = null
@@ -53,7 +53,12 @@ app.on('activate', function () {
 })
 
 ipcMain.on('LFX_SETLIGHT', (event, arg) => {
-  const libLightFX = new LightFX(path.join(__dirname, 'LightFX.dll'));
+  const dllPath = "C:\\Windows\\System32\\LightFX.dll";
+  if (!fs.existsSync(dllPath)) {
+    event.sender.send('LFX_SETLIGHT_RESULT', 'LightFX.dll not Found.');
+    return;
+  }
+  const libLightFX = new LightFX(dllPath);
   const alignment = (arg.align === 'left') ? 0 : 1;
   const result = libLightFX.initialize();
   if (result === RESULT.SUCCESS) {
