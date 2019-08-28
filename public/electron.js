@@ -119,3 +119,14 @@ ipcMain.on('APP_FAVFLAGS', (event, arg) => {
   });
   event.returnValue = flags;
 });
+
+ipcMain.on('APP_GETFAVS', (event, arg) => {
+  const favThemes = Object.values(favorites);
+  const start = Math.min((arg.page - 1) * arg.limit, favThemes.length - 1);
+  const end = Math.min(start + arg.limit, favThemes.length);
+
+  event.returnValue = {
+    themes: favThemes.slice(start, end),
+    total: favThemes.length
+  }
+});

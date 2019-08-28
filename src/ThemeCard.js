@@ -15,6 +15,12 @@ class ThemeCard extends Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.heart !== this.state.heart) {
+      this.setState({ heart: nextProps.heart });
+    }
+  }
+
   onActionClick = (theme, action) => {
     if (action === 'left' || action === 'right') {
       ipcRenderer.send('LFX_SETLIGHT', { align: action, theme: theme });

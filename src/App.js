@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Input, Pagination, Modal, Select, Col, Row } from 'antd';
+import { Input, Pagination, Modal, Select, Col, Row, Button, Icon } from 'antd';
 import CardMatrix from './CardMatrix';
 import './App.css';
 const ipcRenderer = window.ipcRenderer;
@@ -17,7 +17,8 @@ class App extends Component {
     favFlags: [],
     sort: 'like_count',
     time: 'all',
-    status: 'index'
+    status: 'index',
+    lastState: {}
   };
 
   componentDidMount() {
@@ -36,6 +37,11 @@ class App extends Component {
       url = `https://kuler.adobe.com/api/v2/search?q={"term":"${this.state.term}"}&startIndex=${(this.state.page - 1) * this.state.limit}&maxNumber=${this.state.limit}`;
     } else if (this.state.status === 'index') {
       url = `https://kuler.adobe.com/api/v2/themes?filter=public&sort=${this.state.sort}&time=${this.state.time}&startIndex=${(this.state.page - 1) * this.state.limit}&maxNumber=${this.state.limit}`;
+    } else if (this.state.status === 'heart') {
+      const { themes, total } = ipcRenderer.sendSync('APP_GETFAVS', { page: this.state.page, limit: this.state.limit });
+      this.setState({ themes: themes, total: total, favFlags: new Array(themes.length).fill(true) });
+      this.setState({ loading: false });
+      return;
     }
     fetch(url, {
       headers: {
@@ -72,12 +78,22 @@ class App extends Component {
     this.setState({ time: value, status: 'index', page: 1 }, () => this.fetchThemes());
   };
 
+  onHeartToggle = () => {
+    if (this.state.status !== 'heart') {
+      this.setState({ lastState: this.state, status: 'heart', page: 1 }, () => this.fetchThemes());
+    } else {
+      this.setState(this.state.lastState, () => {
+        this.setState({ lastState: {} });
+      });
+    }
+  }
+
   render() {
     return (
       <div className="App">
         <div className="Search">
           <Row gutter={8}>
-            <Col span={18}>
+            <Col span={17}>
               <Search
                 ref={input => this.searchInput = input}
                 placeholder="使用颜色、情境或关键字搜索，例如海洋、葡萄酒、月光、幸运、水..."
@@ -103,6 +119,11 @@ class App extends Component {
                 <Option value="month">本月</Option>
                 <Option value="week">本周</Option>
               </Select>
+            </Col>
+            <Col span={1}>
+              <Button shape="round" onClick={this.onHeartToggle}>
+                <Icon type="heart" theme={(this.state.status === 'heart') ? "twoTone" : "outlined" } twoToneColor="#eb2f96" />
+              </Button>
             </Col>
           </Row>
         </div>

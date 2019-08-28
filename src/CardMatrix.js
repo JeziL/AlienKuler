@@ -3,6 +3,10 @@ import { Col, Row, Spin } from 'antd';
 import ThemeCard from './ThemeCard';
 
 class CardMatrix extends Component {
+  // componentWillReceiveProps(nextProps) {
+  //   this.setState({ favFlags: nextProps.favFlags });
+  // }
+
   render() {
     return (
       <Spin spinning={this.props.loading}>
