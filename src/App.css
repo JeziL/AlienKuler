@@ -31,6 +31,17 @@ Col {
   display: inline-block;
   font-size: 20px;
   line-height: 60px;
+  text-align: center;
+}
+
+.Palette-d {
+  height: 100px;
+  width: 700px;
+}
+
+.Color-d {
+  font-size: 14px;
+  font-weight: bold;
 }
 
 .Author {
