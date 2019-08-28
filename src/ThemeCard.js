@@ -26,7 +26,15 @@ class ThemeCard extends Component {
         }
       });
     } else if (action === 'heart') {
-      this.setState({ heart: !this.state.heart });
+      const result = ipcRenderer.sendSync('APP_HEART', {
+        theme: theme,
+        action: this.state.heart ? 'unheart' : 'heart'
+      });
+      if (result === 0) {
+        this.setState({ heart: !this.state.heart });
+      } else {
+        message.error('收藏失败');
+      }
     }
   }
 
